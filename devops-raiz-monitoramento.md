@@ -3,12 +3,12 @@
 ## 💀 Visão geral (sem enrolação)
 
 Stack de observabilidade rodando em uma EC2 Ubuntu:
-
+```
 EC2
 ├── Node Exporter (9100)  -> métricas do sistema
 ├── Prometheus (9090)     -> coleta e armazena métricas
 └── Grafana (3000)        -> dashboards
-
+```
 ---
 
 ## 🧱 REGRAS DO JOGO
@@ -30,7 +30,7 @@ tar -xvf node_exporter-1.8.2.linux-amd64.tar.gz
 sudo mv node_exporter /usr/local/bin/
  ```
 
- Service (systemd)
+### Service (systemd)
 
  ``` sudo nano /etc/systemd/system/node_exporter.service 
  ```
@@ -84,6 +84,7 @@ scrape_configs:
  
 ### Service
 
+
 ``` sudo nano /etc/systemd/system/prometheus.service 
 ```
 
@@ -106,8 +107,9 @@ WantedBy=multi-user.target
 ```
 
 ### Fix clássico de erro
+
 ``` sudo chown -R prometheus:prometheus /var/lib/prometheus /etc/prometheus
- ```
+```
 
 ### Start
 ```
