@@ -16,7 +16,7 @@ EC2
 - Tudo roda via systemd
 - Nada de processo manual em produção
 - Tudo precisa estar UP no /targets
-- Se der erro: 90% é permissão ou YAML
+
 
 ---
 
@@ -24,15 +24,19 @@ EC2
 
 ### Instalação
 
-```wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
+```
+wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
 tar -xvf node_exporter-1.8.2.linux-amd64.tar.gz
-sudo mv node_exporter /usr/local/bin/ ```
+sudo mv node_exporter /usr/local/bin/
+ ```
 
-### Service (systemd)
+ Service (systemd)
 
- ``` sudo nano /etc/systemd/system/node_exporter.service ```
+ ``` sudo nano /etc/systemd/system/node_exporter.service 
+ ```
 
-``` [Unit]
+``` 
+[Unit]
 Description=Node Exporter
 After=network.target
 
@@ -42,10 +46,12 @@ ExecStart=/usr/local/bin/node_exporter
 
 [Install]
 WantedBy=multi-user.target
+
 ```
 
 ### Start
-```sudo systemctl daemon-reload
+```
+sudo systemctl daemon-reload
 sudo systemctl enable node_exporter
 sudo systemctl start node_exporter
 ```
@@ -54,8 +60,10 @@ sudo systemctl start node_exporter
 ## 📡 PROMETHEUS
 
 ### Estrutura
-```sudo useradd --no-create-home --shell /bin/false prometheus
-sudo mkdir -p /etc/prometheus /var/lib/prometheus```
+```
+sudo useradd --no-create-home --shell /bin/false prometheus
+sudo mkdir -p /etc/prometheus /var/lib/prometheus
+```
 
 ### Config (/etc/prometheus/prometheus.yml)
 ```
@@ -72,9 +80,12 @@ scrape_configs:
       - targets: ["localhost:9100"]
 
 ```
+ 
+ 
 ### Service
 
-``` sudo nano /etc/systemd/system/prometheus.service ```
+``` sudo nano /etc/systemd/system/prometheus.service 
+```
 
 ```
 [Unit]
@@ -95,7 +106,8 @@ WantedBy=multi-user.target
 ```
 
 ### Fix clássico de erro
-``` sudo chown -R prometheus:prometheus /var/lib/prometheus /etc/prometheus ```
+``` sudo chown -R prometheus:prometheus /var/lib/prometheus /etc/prometheus
+ ```
 
 ### Start
 ```
@@ -103,18 +115,22 @@ sudo systemctl daemon-reload
 sudo systemctl enable prometheus
 sudo systemctl start prometheus
 ```
----
+
 
 ## 📊 GRAFANA
 
 ### Install
+
 ```
 sudo apt update
 sudo apt install -y grafana
 ```
+
 ### Start
+```
 sudo systemctl enable grafana-server
 sudo systemctl start grafana-server
+```
 
 ### Acesso
 http://IP:3000
