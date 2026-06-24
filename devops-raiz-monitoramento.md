@@ -1,6 +1,6 @@
-# 🔥 DEVOPS RAIZ — MONITORAMENTO EC2 (PROMETHEUS + GRAFANA + NODE EXPORTER)
+ — MONITORAMENTO EC2 (PROMETHEUS + GRAFANA + NODE EXPORTER)
 
-## 💀 Visão geral (sem enrolação)
+##  Visão geral 
 
 Stack de observabilidade rodando em uma EC2 Ubuntu:
 ```
@@ -11,7 +11,7 @@ EC2
 ```
 ---
 
-## 🧱 REGRAS DO JOGO
+## 🧱 REGRAS DO PROJETO
 
 - Tudo roda via systemd
 - Nada de processo manual em produção
@@ -32,8 +32,7 @@ sudo mv node_exporter /usr/local/bin/
 
 ### Service (systemd)
 
- ``` sudo nano /etc/systemd/system/node_exporter.service 
- ```
+ ``` sudo nano /etc/systemd/system/node_exporter.service  ```
 
 ``` 
 [Unit]
