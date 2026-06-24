@@ -23,14 +23,16 @@ EC2
 ## 📦 NODE EXPORTER
 
 ### Instalação
-wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
+
+```wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
 tar -xvf node_exporter-1.8.2.linux-amd64.tar.gz
-sudo mv node_exporter /usr/local/bin/
+sudo mv node_exporter /usr/local/bin/ ```
 
 ### Service (systemd)
-sudo nano /etc/systemd/system/node_exporter.service
 
-[Unit]
+ ``` sudo nano /etc/systemd/system/node_exporter.service ```
+
+``` [Unit]
 Description=Node Exporter
 After=network.target
 
@@ -40,21 +42,23 @@ ExecStart=/usr/local/bin/node_exporter
 
 [Install]
 WantedBy=multi-user.target
+```
 
 ### Start
-sudo systemctl daemon-reload
+```sudo systemctl daemon-reload
 sudo systemctl enable node_exporter
 sudo systemctl start node_exporter
-
+```
 ---
 
 ## 📡 PROMETHEUS
 
 ### Estrutura
-sudo useradd --no-create-home --shell /bin/false prometheus
-sudo mkdir -p /etc/prometheus /var/lib/prometheus
+```sudo useradd --no-create-home --shell /bin/false prometheus
+sudo mkdir -p /etc/prometheus /var/lib/prometheus```
 
 ### Config (/etc/prometheus/prometheus.yml)
+```
 global:
   scrape_interval: 15s
 
@@ -67,9 +71,12 @@ scrape_configs:
     static_configs:
       - targets: ["localhost:9100"]
 
+```
 ### Service
-sudo nano /etc/systemd/system/prometheus.service
 
+``` sudo nano /etc/systemd/system/prometheus.service ```
+
+```
 [Unit]
 Description=Prometheus
 Wants=network-online.target
@@ -85,22 +92,26 @@ ExecStart=/usr/local/bin/prometheus \
 [Install]
 WantedBy=multi-user.target
 
+```
+
 ### Fix clássico de erro
-sudo chown -R prometheus:prometheus /var/lib/prometheus /etc/prometheus
+``` sudo chown -R prometheus:prometheus /var/lib/prometheus /etc/prometheus ```
 
 ### Start
+```
 sudo systemctl daemon-reload
 sudo systemctl enable prometheus
 sudo systemctl start prometheus
-
+```
 ---
 
 ## 📊 GRAFANA
 
 ### Install
+```
 sudo apt update
 sudo apt install -y grafana
-
+```
 ### Start
 sudo systemctl enable grafana-server
 sudo systemctl start grafana-server
