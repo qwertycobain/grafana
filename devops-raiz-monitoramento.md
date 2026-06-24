@@ -3,7 +3,7 @@
 ##  Visão geral 
 
 Stack de observabilidade rodando em uma EC2 Ubuntu:
-```
+```text
 EC2
 ├── Node Exporter (9100)  -> métricas do sistema
 ├── Prometheus (9090)     -> coleta e armazena métricas
@@ -24,7 +24,7 @@ EC2
 
 ### Instalação
 
-```
+```bash
 wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
 tar -xvf node_exporter-1.8.2.linux-amd64.tar.gz
 sudo mv node_exporter /usr/local/bin/
@@ -34,7 +34,7 @@ sudo mv node_exporter /usr/local/bin/
 
  ``` sudo nano /etc/systemd/system/node_exporter.service  ```
 
-``` 
+```yaml
 [Unit]
 Description=Node Exporter
 After=network.target
@@ -49,7 +49,7 @@ WantedBy=multi-user.target
 ```
 
 ### Start
-```
+```bash
 sudo systemctl daemon-reload
 sudo systemctl enable node_exporter
 sudo systemctl start node_exporter
@@ -59,13 +59,13 @@ sudo systemctl start node_exporter
 ## 📡 PROMETHEUS
 
 ### Estrutura
-```
+```bash
 sudo useradd --no-create-home --shell /bin/false prometheus
 sudo mkdir -p /etc/prometheus /var/lib/prometheus
 ```
 
 ### Config (/etc/prometheus/prometheus.yml)
-```
+```yaml
 global:
   scrape_interval: 15s
 
@@ -84,10 +84,11 @@ scrape_configs:
 ### Service
 
 
-``` sudo nano /etc/systemd/system/prometheus.service 
+```bash
+ sudo nano /etc/systemd/system/prometheus.service
 ```
 
-```
+```yaml
 [Unit]
 Description=Prometheus
 Wants=network-online.target
@@ -107,11 +108,12 @@ WantedBy=multi-user.target
 
 ### Fix clássico de erro
 
-``` sudo chown -R prometheus:prometheus /var/lib/prometheus /etc/prometheus
+```bash
+ sudo chown -R prometheus:prometheus /var/lib/prometheus /etc/prometheus
 ```
 
 ### Start
-```
+```bash
 sudo systemctl daemon-reload
 sudo systemctl enable prometheus
 sudo systemctl start prometheus
@@ -122,13 +124,13 @@ sudo systemctl start prometheus
 
 ### Install
 
-```
+```bash
 sudo apt update
 sudo apt install -y grafana
 ```
 
 ### Start
-```
+```bash
 sudo systemctl enable grafana-server
 sudo systemctl start grafana-server
 ```
